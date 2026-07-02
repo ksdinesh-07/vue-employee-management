@@ -25,23 +25,23 @@
     data(){
       return {
         employees:[
-          {
-            id:1,
-            name:"alice",
-            email:"alice90@gamil.com"
-          },  
+          // {
+          //   id:1,
+          //   name:"alice",
+          //   email:"alice90@gamil.com"
+          // },  
           
-          {
-            id:2,
-            name:"bob",
-            email:"bob340@gamil.com"
-          },
+          // {
+          //   id:2,
+          //   name:"bob",
+          //   email:"bob340@gamil.com"
+          // },
           
-          {
-            id:3,
-            name:"charlie",
-            email:"charle40@gamil.com"
-          },          
+          // {
+          //   id:3,
+          //   name:"charlie",
+          //   email:"charle40@gamil.com"
+          // },          
 
         ]
       }
@@ -63,9 +63,21 @@ button{
 }
 
 .small-container{
-  max-width: 680px;
-  margin:50px auto;
-  
+    width:90%;
+    max-width:800px;
+    margin:40px auto;
+    background:#fff;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,.1);
 }
+
+h1{
+    text-align:center;
+    margin-bottom:25px;
+    color:#2c3e50;
+}
+  
+
 
 </style>

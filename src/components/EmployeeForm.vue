@@ -38,6 +38,40 @@ export default {
 
 <style scoped>
   form{
-    margin-bottom: 2rem;
-  }
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+    margin-bottom:30px;
+}
+
+label{
+    font-weight:bold;
+}
+
+input{
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:6px;
+    font-size:16px;
+}
+
+input:focus{
+    outline:none;
+    border-color:#42b983;
+}
+
+button{
+    background:#42b983;
+    color:white;
+    border:none;
+    padding:12px;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:16px;
+    transition:.3s;
+}
+
+button:hover{
+    background:#2fa06d;
+}
 </style>
