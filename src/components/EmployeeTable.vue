@@ -28,7 +28,7 @@
           <td v-if="editing===emp.id">
 
             <button @click="editemp(emp)" >Save</button>
-            <button @click="editing=null" >Cancel</button>
+            <button class="muted-button" @click="cancel_edit(emp)" >Cancel</button>
 
 
           </td>
@@ -58,14 +58,29 @@ export default {
       emp:{
         name:'',
         email:''
-      }
+      },
+      catched_emp:null
     }
   },
   methods:{
   editMode(emp){
     this.editing=emp.id;
+    this.catched_emp=Object.assign({},emp);
+  },
+  editemp(emp){
+    if (emp.name=='' || emp.email==''){
+    return ;
+    }
+    this.$emit('edit:employee',emp.id,emp)
+    this.editing=null;
+  },
+  cancel_edit(emp){
+    this.editing= null
+    Object.assign(emp,this.catched_emp);
   }
-}
+
+
+  }
 }
 
 </script>

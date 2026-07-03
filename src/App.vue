@@ -3,7 +3,7 @@
   <div class="small-container">
 
   <h1>Employees</h1>
-  <employee-table :employees="employees" @delete:employee="deleteEmployee" />
+  <employee-table :employees="employees" @delete:employee="deleteEmployee" @edit:employee="edit_emp" />
   <employee-form @add:employee="addemployee"  />
 
   </div>
@@ -46,7 +46,13 @@
       this.employees=this.employees.filter((item)=>{
         return item.id != id
       })
-    }
+     },
+
+     edit_emp(id,updated_emp){
+        this.employees.map((item)=>{
+          return item.id==id?updated_emp:item;
+        })
+     }
     }
     
   }
