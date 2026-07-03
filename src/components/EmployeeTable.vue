@@ -17,10 +17,23 @@
           <td v-if="editing===emp.id" >
             <input type='text' v-model="emp.name">
           </td>
-
           <td v-else >{{emp.name}}</td>
-          <td>{{emp.email}}</td>
-          <td> 
+
+          <td v-if="editing===emp.id" >
+            <input type='text' v-model="emp.email">
+          </td>
+          <td v-else >{{emp.email}}</td>
+
+
+          <td v-if="editing===emp.id">
+
+            <button @click="editemp(emp)" >Save</button>
+            <button @click="editing=null" >Cancel</button>
+
+
+          </td>
+
+          <td v-else> 
             <button  @click="editMode(emp)" class="edit-btn" >Edit</button> 
             <button @click="$emit('delete:employee',emp.id)" class="delete-btn" >Delete</button> 
           </td>
