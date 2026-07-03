@@ -34,12 +34,27 @@
       }
     },
     methods:{
-      addemployee(employe){
+      async addemployee(employe){
 
-        const last_id=this.employees.length>0?this.employees[this.employees.length-1].id:0
-        const id=last_id+1
-        const new_emp={...employe,id}
-        this.employees=[...this.employees,new_emp];
+        try{
+
+        const response= await fetch('https://jsonplaceholder.typicode.com/posts',{
+          method:'POST',
+          body:JSON.stringify(employe),
+          headers:{'Content-type':'application/json;charset=UTF-8'}
+          });
+
+        const data=await response.json()
+
+        // const last_id=this.employees.length>0?this.employees[this.employees.length-1].id:0
+        // const id=last_id+1
+        // const new_emp={...employe,id}
+        this.employees=[...this.employees,data];
+
+        }catch(err){
+          console.log(err)
+        }
+
       },
       
       deleteEmployee(id){
@@ -52,7 +67,20 @@
         this.employees.map((item)=>{
           return item.id==id?updated_emp:item;
         })
+     },
+
+     async get_employees(){
+      try{
+        const response=await fetch('https://jsonplaceholder.typicode.com/users',{method:'GET'})
+        const data=await response.json();
+        this.employees=data;
+      }catch(error){
+        console.log(error)
+      }
      }
+    },
+    mounted(){
+      this.get_employees();
     }
     
   }
