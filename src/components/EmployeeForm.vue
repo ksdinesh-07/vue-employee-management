@@ -1,10 +1,23 @@
 <template>
   <div id="employee-form">
     <form v-on:submit.prevent="handleSubmit">
+
       <label>Employee name</label>
-      <input type="text" v-model='employee.name' />
+      <input type="text" v-model='employee.name' 
+      :class="{'has-error':submission && invalidname}" 
+      @focus='clearstatus' @keypress="clearstatus"
+      ref="firstinput"
+       />
+
+
       <label>Employee Email </label>
-      <input type="text" v-model='employee.email' />
+      <input type="text" v-model='employee.email'
+      :class="{'has-error':submission && invalidemail}" 
+      @focus='clearstatus' @keypress="clearstatus" />
+
+      <p v-if="submission && error" class="error-msg" >Please fill out all the required fields!</p>
+      <p v-if="success" class="success-msg" >Employee Successfully added</p>
+
       <button> Add Employee </button>
     </form>
   </div>
@@ -16,6 +29,9 @@ export default {
   name:"employee-form",
   data(){
     return{
+      submission:false,
+      success:false,
+      error:false,
       employee:{
         name:'',
         email:''
@@ -24,12 +40,37 @@ export default {
   },
   methods:{
     handleSubmit(){
-      console.log("clicked")
+      this.submission=true;
+      this.clearstatus();
+      
+      if (this.invalidemail || this.invalidname){
+        this.error=true;
+        return;
+      }
+
       this.$emit('add:employee',this.employee);
+      this.$refs.firstinput.focus();
       this.employee = {
-      name: "",
-      email: ""
-    };
+        name: "",
+        email: ""
+      }
+
+      this.success=true
+      this.error=false
+      this.submission=false 
+
+    },
+    clearstatus(){
+      this.success=false
+      this.error=false
+    }
+  },
+  computed:{
+    invalidname(){
+      return this.employee.name==='';
+    },
+    invalidemail(){
+      return this.employee.email==='';
     }
   }
 
@@ -74,4 +115,20 @@ button{
 button:hover{
     background:#2fa06d;
 }
+
+.has-error{
+    border:1px solid red;
+}
+
+[class*='-msg']{
+  font-weight:500;
+}
+
+.error-msg{
+  color: red;
+}
+.success-msg{
+  color: rgb(68, 187, 68);
+}
+
 </style>

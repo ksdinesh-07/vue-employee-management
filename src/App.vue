@@ -3,8 +3,8 @@
   <div class="small-container">
 
   <h1>Employees</h1>
-  <employee-table :employees="employees" />
-  <employee-form @add:employee="addemployee" />
+  <employee-table :employees="employees" @delete:employee="deleteEmployee" />
+  <employee-form @add:employee="addemployee"  />
 
   </div>
   
@@ -29,28 +29,26 @@
           //   id:1,
           //   name:"alice",
           //   email:"alice90@gamil.com"
-          // },  
-          
-          // {
-          //   id:2,
-          //   name:"bob",
-          //   email:"bob340@gamil.com"
-          // },
-          
-          // {
-          //   id:3,
-          //   name:"charlie",
-          //   email:"charle40@gamil.com"
-          // },          
-
+          // }
         ]
       }
     },
     methods:{
       addemployee(employe){
-        this.employees=[...this.employees,employe];
-      }
+
+        const last_id=this.employees.length>0?this.employees[this.employees.length-1].id:0
+        const id=last_id+1
+        const new_emp={...employe,id}
+        this.employees=[...this.employees,new_emp];
+      },
+      
+      deleteEmployee(id){
+      this.employees=this.employees.filter((item)=>{
+        return item.id != id
+      })
     }
+    }
+    
   }
 </script>
 
@@ -75,9 +73,9 @@ button{
 h1{
     text-align:center;
     margin-bottom:25px;
-    color:#2c3e50;
+    color:#2c3e50;                                                                                                                                                                                                                                                                                                                                                                                                  
 }
   
 
 
-</style>
+</style>                                                                                                                                                                                                                                                                                                                                         
