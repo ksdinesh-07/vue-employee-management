@@ -57,17 +57,39 @@
 
       },
       
-      deleteEmployee(id){
-      this.employees=this.employees.filter((item)=>{
+      async deleteEmployee(id){
+        try{
+
+          const response=await fetch('https://jsonplaceholder.typicode.com/users',{
+            method:'DELETE'
+          })
+
+        this.employees=this.employees.filter((item)=>{
         return item.id != id
       })
+        }catch(err){
+          console.log(err)
+        }
+      
      },
 
-     edit_emp(id,updated_emp){
-        this.employees.map((item)=>{
-          return item.id==id?updated_emp:item;
+     async edit_emp(id,updated_emp){
+        
+        try{
+        const response=await fetch('https://jsonplaceholder.typicode.com/users/'+id,{
+          method:'PUT',
+          body:JSON.stringify(updated_emp),
+          headers:{'Content-type':'application/json;charset=UTF-8'}
         })
-     },
+
+        const data=await response.json();
+        this.employees.map((item)=>{
+          return item.id==id?data:item;
+        })
+        }catch(err){
+          console.log(err)
+        }                
+      },
 
      async get_employees(){
       try{
